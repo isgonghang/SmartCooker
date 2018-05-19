@@ -1,0 +1,59 @@
+apply plugin: 'com.android.application'
+apply plugin: 'org.greenrobot.greendao'
+
+android {
+    compileSdkVersion 26
+
+    defaultConfig {
+        applicationId "com.example.smartcooker"
+        minSdkVersion 19
+        targetSdkVersion 26
+        versionCode 1
+        versionName "1.0"
+        testInstrumentationRunner "android.support.test.runner.AndroidJUnitRunner"
+    }
+    buildTypes {
+        release {
+            minifyEnabled false
+            proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'
+        }
+    }
+
+    greendao {
+        schemaVersion 1  //版本
+        daoPackage 'smartcookerDao' // 一般为app包名+生成文件的文件夹名
+        targetGenDir 'src/main/java' //生成文件路径
+    }}
+
+dependencies {
+
+  //  implementation 'com.android.support.constraint:constraint-layout:1.1.0'
+
+    implementation 'com.android.support:design:26.1.0'
+
+    implementation fileTree(include: ['*.jar'], dir: 'libs')
+    implementation 'com.android.support:appcompat-v7:26.1.0'
+    implementation 'com.android.support.constraint:constraint-layout:1.0.2'
+    testImplementation 'junit:junit:4.12'
+    androidTestImplementation 'com.android.support.test:runner:1.0.1'
+    androidTestImplementation 'com.android.support.test.espresso:espresso-core:3.0.1'
+    implementation 'com.squareup.okhttp:okhttp:2.0.0'
+    compile 'com.zhy:okhttputils:2.6.2'
+    implementation project(':NaviagationLib')
+    implementation project(':FlycoTabLayout_Lib')
+    implementation project(':mytitlelayoutlib')
+    implementation project(':frame_lib')
+    implementation project(':baseble')
+    compile 'com.skyfishjy.ripplebackground:library:1.0.1'
+    implementation project(':sidetablayout_lib')
+    implementation 'com.github.Aspsine:IRecyclerView:0.0.5'
+    compile 'com.github.bumptech.glide:glide:3.7.0'
+    compile 'de.hdodenhof:circleimageview:2.2.0'
+    implementation project(':stretchscrollview')
+    compile 'com.github.lecho:hellocharts-library:1.5.8@aar'
+    implementation 'com.google.code.gson:gson:2.2.4'
+    compile 'org.greenrobot:greendao:3.2.2'
+    // add library
+    compile 'org.greenrobot:greendao-generator:3.2.2'
+
+}

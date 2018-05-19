@@ -1,0 +1,66 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:id="@+id/navigation_root"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:background="#fff"
+    android:paddingBottom="5dp"
+   >
+
+    <View
+        android:layout_width="match_parent"
+        android:layout_height="1dp"
+        android:layout_alignParentTop="true"
+        android:background="#E1E1E1" />
+
+    <LinearLayout
+        android:paddingTop="5dp"
+        android:id="@+id/item_root"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+
+        android:orientation="horizontal"
+        android:weightSum="5">
+
+        <com.example.mylibrary.NavigationItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+        </com.example.mylibrary.NavigationItem>
+
+        <com.example.mylibrary.NavigationItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+        </com.example.mylibrary.NavigationItem>
+
+        <com.example.mylibrary.NavigationItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+        </com.example.mylibrary.NavigationItem>
+
+        <com.example.mylibrary.NavigationItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+        </com.example.mylibrary.NavigationItem>
+
+        <com.example.mylibrary.NavigationItem
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_weight="1"
+            android:gravity="center_horizontal">
+
+        </com.example.mylibrary.NavigationItem>
+
+    </LinearLayout>
+</RelativeLayout>

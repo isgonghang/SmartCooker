@@ -1,0 +1,53 @@
+<?xml version="1.0" encoding="utf-8"?>
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="wrap_content"
+    android:layout_marginLeft="10dp"
+    android:layout_marginRight="10dp"
+    android:background="#fff"
+    android:orientation="horizontal"
+    android:padding="10dp">
+
+    <EditText
+        android:id="@+id/temp"
+        android:layout_width="wrap_content"
+        android:layout_height="40dp"
+        android:background="@null"
+        android:hint="沸点/℃"
+        android:inputType="number"
+        android:textColor="#000000"
+        android:textColorHint="#747474"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/grow"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginLeft="25dp"
+        android:background="@null"
+        android:hint="升温时长/分"
+        android:inputType="number"
+        android:textColor="#000000"
+        android:textColorHint="#747474"
+        android:textSize="16sp" />
+
+    <EditText
+        android:id="@+id/zhufei"
+        android:layout_width="wrap_content"
+        android:layout_height="48dp"
+        android:layout_marginLeft="25dp"
+        android:background="@null"
+        android:hint="煮沸时长/分"
+        android:inputType="number"
+        android:textColor="#000000"
+        android:textColorHint="#747474"
+        android:textSize="16sp" />
+
+    <ImageView
+
+        android:id="@+id/close"
+        android:layout_width="48dp"
+        android:layout_height="48dp"
+        android:layout_marginLeft="20dp"
+        android:src="@drawable/close_icon" />
+</LinearLayout>

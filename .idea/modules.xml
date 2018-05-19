@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project version="4">
+  <component name="ProjectModuleManager">
+    <modules>
+      <module fileurl="file://$PROJECT_DIR$/FlycoTabLayout_Lib/FlycoTabLayout_Lib.iml" filepath="$PROJECT_DIR$/FlycoTabLayout_Lib/FlycoTabLayout_Lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/NaviagationLib/NaviagationLib.iml" filepath="$PROJECT_DIR$/NaviagationLib/NaviagationLib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/SmartCooker.iml" filepath="$PROJECT_DIR$/SmartCooker.iml" />
+      <module fileurl="file://$PROJECT_DIR$/app/app.iml" filepath="$PROJECT_DIR$/app/app.iml" />
+      <module fileurl="file://$PROJECT_DIR$/baseble/baseble.iml" filepath="$PROJECT_DIR$/baseble/baseble.iml" />
+      <module fileurl="file://$PROJECT_DIR$/frame_lib/frame_lib.iml" filepath="$PROJECT_DIR$/frame_lib/frame_lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/mytitlelayoutlib/mytitlelayoutlib.iml" filepath="$PROJECT_DIR$/mytitlelayoutlib/mytitlelayoutlib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/sidetablayout_lib/sidetablayout_lib.iml" filepath="$PROJECT_DIR$/sidetablayout_lib/sidetablayout_lib.iml" />
+      <module fileurl="file://$PROJECT_DIR$/stretchscrollview/stretchscrollview.iml" filepath="$PROJECT_DIR$/stretchscrollview/stretchscrollview.iml" />
+    </modules>
+  </component>
+</project>

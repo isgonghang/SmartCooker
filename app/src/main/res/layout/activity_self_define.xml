@@ -1,0 +1,143 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <com.example.stretchscrollview.StretchContainer xmlns:android="http://schemas.android.com/apk/res/android"
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:background="#f4f4f4">
+
+        <com.example.stretchscrollview.StretchScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+
+                <EditText
+                    android:id="@+id/text_type_name"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="15dp"
+                    android:background="#fff"
+                    android:gravity="center_vertical"
+                    android:hint="编辑作品名称"
+                    android:paddingLeft="15dp"
+                    android:textColor="#000"
+                    android:textColorHint="#353535"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/add_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_below="@+id/text_type_name"
+                    android:layout_marginTop="10dp"
+                    android:background="#ffffff"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="添加封面图片"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/add_pic"
+                    android:layout_marginRight="20dp"
+                    android:padding="8dp"
+                    android:src="@drawable/icon_add_selected" />
+
+                <ImageView
+                    android:id="@+id/image_pic"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_below="@id/add_pic"
+                    android:layout_centerHorizontal="true"
+                    android:background="#ffffff"
+                    android:paddingLeft="15dp"
+                    android:paddingRight="15dp"
+                    android:visibility="gone" />
+
+                <EditText
+                    android:id="@+id/edit_recipe"
+                    android:layout_width="match_parent"
+                    android:layout_height="150dp"
+                    android:layout_below="@id/image_pic"
+                    android:layout_marginTop="10dp"
+                    android:background="#ffffff"
+                    android:hint="编辑食材与步骤"
+                    android:paddingLeft="15dp"
+                    android:textColor="#000000"
+                    android:textColorHint="#353535"
+                    android:textSize="16sp" />
+
+                <TextView
+                    android:id="@+id/add_time"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_below="@id/edit_recipe"
+                    android:layout_marginTop="10dp"
+                    android:background="#ffffff"
+                    android:gravity="center_vertical"
+                    android:paddingLeft="15dp"
+                    android:text="添加加热时间段"
+                    android:textColor="#000000"
+                    android:textSize="16sp" />
+
+                <LinearLayout
+
+                    android:id="@+id/time_root"
+                    android:layout_width="match_parent"
+                    android:layout_height="wrap_content"
+                    android:layout_below="@id/add_time"
+                    android:orientation="vertical">
+
+                </LinearLayout>
+
+                <lecho.lib.hellocharts.view.LineChartView
+                    android:id="@+id/mchart"
+                    android:layout_width="match_parent"
+                    android:layout_height="250dp"
+                    android:layout_below="@id/time_root"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="10dp"
+                    android:visibility="gone" />
+
+
+                <ImageView
+                    android:layout_width="48dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentEnd="true"
+                    android:layout_alignTop="@+id/add_time"
+                    android:layout_marginRight="20dp"
+                    android:padding="8dp"
+                    android:src="@drawable/icon_add_selected" />
+
+                <TextView
+                    android:id="@+id/go"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_below="@id/mchart"
+                    android:layout_marginLeft="10dp"
+                    android:layout_marginRight="10dp"
+                    android:layout_marginTop="20dp"
+                    android:background="@drawable/title_drable"
+                    android:gravity="center"
+                    android:text="生 成 加 热 曲 线"
+                    android:textSize="16sp" />
+
+                <View
+                    android:layout_width="match_parent"
+                    android:layout_height="120dp"
+                    android:layout_below="@id/go" />
+
+            </RelativeLayout>
+        </com.example.stretchscrollview.StretchScrollView>
+    </com.example.stretchscrollview.StretchContainer>
+</RelativeLayout>

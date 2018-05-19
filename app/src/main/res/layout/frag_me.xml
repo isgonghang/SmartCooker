@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="utf-8"?>
+<RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent">
+
+    <RelativeLayout
+        android:id="@+id/re2"
+        android:layout_width="match_parent"
+        android:layout_height="120dp"
+        android:background="@drawable/title_drable">
+
+        <TextView
+            android:id="@+id/login"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_marginLeft="15dp"
+            android:text="登录"
+            android:textColor="#fff"
+            android:textSize="20sp" />
+    </RelativeLayout>
+
+
+    <com.example.stretchscrollview.StretchContainer
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_below="@id/re2"
+        android:background="#f4f4f4">
+
+        <com.example.stretchscrollview.StretchScrollView
+            android:layout_width="match_parent"
+            android:layout_height="match_parent">
+
+            <RelativeLayout
+                android:layout_width="match_parent"
+                android:layout_height="match_parent">
+
+                <TextView
+                    android:id="@+id/text_zidingyi"
+                    android:layout_width="match_parent"
+                    android:layout_height="48dp"
+                    android:layout_marginTop="100dp"
+                    android:layout_toRightOf="@id/i"
+                    android:background="#ffffff"
+                    android:gravity="center_vertical"
+                    android:padding="5dp"
+                    android:text="自定义食谱"
+                    android:textColor="#000000" />
+
+                <ImageView
+                    android:id="@+id/i"
+                    android:layout_width="36dp"
+                    android:layout_height="48dp"
+                    android:layout_alignParentStart="true"
+                    android:layout_alignTop="@+id/text_zidingyi"
+                    android:background="#fff"
+                    android:padding="8dp"
+                    android:src="@drawable/edit" />
+            </RelativeLayout>
+
+        </com.example.stretchscrollview.StretchScrollView>
+    </com.example.stretchscrollview.StretchContainer>
+
+    <de.hdodenhof.circleimageview.CircleImageView
+        android:id="@+id/login_touxiang"
+        android:layout_width="75dp"
+        android:layout_height="75dp"
+        android:layout_below="@id/re2"
+        android:layout_centerHorizontal="true"
+        android:layout_marginTop="-40dp"
+        android:src="@drawable/touxiang_a" />
+
+</RelativeLayout>
+
+
+
+
