@@ -165,12 +165,11 @@ public class MainActivity extends BaseActivity {
             public void afterTextChanged(Editable editable) {
                 String s = time.getText().toString();
                 if (s.contains(":")&&s.length()<6) {
+                    //将时间转化为秒
                     int h=Integer.parseInt(s.substring(1,2));
-                    Log.i("t", "afterTextChanged: "+h);
                     int m=Integer.parseInt(s.substring(3,4));
                     int mm=Integer.parseInt(s.substring(4,5));
                     time_count=h*3600+m*10*60+mm*60;
-                    Log.i("time", "afterTextChanged: "+String.valueOf(time_count)+"   "+s.charAt(1)+"  "+s.charAt(4)+"  "+s);
                 }
             }
         });
