@@ -96,7 +96,7 @@ public class LocalRecipeListAdapter extends RecyclerView.Adapter<IViewHolder> {
         TextView name = view.findViewById(R.id.food_name);
         LocalRecipeListModel model = modelList.get(position);
         name.setText(model.getName());
-        Glide.with(content.getContext()).load(model.getImage_left()).dontAnimate().into(content);
+        Glide.with(content.getContext()).load(model.getImage_left()).dontAnimate().placeholder(R.drawable.place_holder).into(content);
     }
 
     @Override
