@@ -85,7 +85,7 @@ public class SelfDefineActivity extends BaseActivity {
         //初始化弹出框
         popDialogHelper = new PopDialogHelper(this);
         //初始化标题栏
-        getTitle_Layout().setTitleText("自定义加热")
+        getTitle_Layout().setTitleText("自定义食谱")
                 .setBackSrc(R.drawable.icon_back_white)
                 .setBackDismiss(false)
                 .setRightSrc(R.drawable.fenlei)
