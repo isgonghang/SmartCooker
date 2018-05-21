@@ -64,7 +64,7 @@ public class GetCloudRecipeDetailTask extends BaseTask {
         map.put( 35, (float) 70);
         map.put( 40, (float) 100);
         map.put( 50, (float) 100);
-        RecipeDetailModel mm = new RecipeDetailModel((long)9, content2, (float) 8.5, (float) 30, "红烧排骨", "食材：...... ", map);
+        RecipeDetailModel mm = new RecipeDetailModel((long)Math.random(), content2, (float) 8.5, (float) 30, "红烧排骨", "食材：...... ", map);
 
         Gson gson = new Gson();
         String jsonStr = gson.toJson(mm);

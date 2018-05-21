@@ -3,36 +3,27 @@ package com.example.smartcooker.app.ui.frags;
 import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
-import android.support.annotation.PluralsRes;
-import android.support.v4.app.Fragment;
 import android.view.LayoutInflater;
-import android.view.MotionEvent;
 import android.view.View;
-import android.view.View.OnTouchListener;
 import android.view.ViewGroup;
 import android.widget.AdapterView;
-import android.widget.ArrayAdapter;
-import android.widget.Button;
 import android.widget.ImageView;
-import android.widget.ListView;
 import android.widget.RelativeLayout;
-import android.widget.SimpleAdapter;
 import android.widget.TextView;
 import android.widget.Toast;
 
 import com.bumptech.glide.Glide;
-import com.example.frame_lib.frame.actys.BaseActivity;
-import com.example.frame_lib.frame.callbacks.UiCallBack;
 import com.example.frame_lib.frame.config.TaskIdConfig;
 import com.example.frame_lib.frame.frags.BaseFragment;
 import com.example.frame_lib.frame.utils.PopDialogHelper;
-import com.example.mytitlelyoutlib.TitleLayout;
-import com.example.sidetablayout_lib.OnChangeListener;
-import com.example.sidetablayout_lib.SideTabLayout;
 import com.example.smartcooker.R;
 import com.example.smartcooker.app.bll.device.DeviceBindTask;
+import com.example.smartcooker.app.bll.recipe.GetLocalRecipeDetailTask;
+import com.example.smartcooker.app.bll.recipe.GetLocalRecipeListTask;
 import com.example.smartcooker.app.dal.model.DeviceModel;
-import com.example.smartcooker.app.dal.model.Image;
+import com.example.smartcooker.app.dal.model.LocalRecipeListModel;
+import com.example.smartcooker.app.dal.model.LocalRecipeModel;
+import com.example.smartcooker.app.dal.model.RecipeDetailModel;
 import com.example.smartcooker.app.ui.actys.SelfDefineActivity;
 import com.skyfishjy.library.RippleBackground;
 
@@ -58,6 +49,11 @@ public class ManageFragment extends BaseFragment {
     private PopDialogHelper popDialogHelper;
     private boolean isConnected = false;
     private ImageView imageView_guo;
+    private GetLocalRecipeListTask task;
+    private LocalRecipeListModel localRecipeListModel;
+    private List<String> localRecipeList;
+    private GetLocalRecipeDetailTask getLocalRecipeDetailTask;
+    private RecipeDetailModel recipeDetailModel;
 
     @Nullable
     @Override
@@ -65,12 +61,39 @@ public class ManageFragment extends BaseFragment {
         view = inflater.inflate(R.layout.frag_manage, container, false);
         initView();
         setViewListener();
+        if (task == null) task = new GetLocalRecipeListTask(this);
+        if (getLocalRecipeDetailTask == null)
+            getLocalRecipeDetailTask = new GetLocalRecipeDetailTask(this);
         return view;
     }
 
     @Override
     public void refreshUi(Object result, int taskId) {
         switch (taskId) {
+            case TaskIdConfig.ON_GET_LOCAL_RECIPE_DELATIL_SUCCESS:
+                recipeDetailModel = (RecipeDetailModel) result;
+                break;
+            case TaskIdConfig.ON_GET_LOCAL_RECIPE_LIST_SUCCESS:
+                final List<LocalRecipeListModel> listModels = (List<LocalRecipeListModel>) result;
+                localRecipeList = new ArrayList<>();
+                localRecipeList.add("本地程序");
+                for (LocalRecipeListModel item : listModels
+                        ) {
+                    localRecipeList.add(item.getName() + "     " + item.getTime());
+                }
+                popDialogHelper.buildDialogInCenter()
+                        .setListData(localRecipeList);
+                popDialogHelper.setOnItemClickListener(new AdapterView.OnItemClickListener() {
+                    @Override
+                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
+                        localRecipeListModel = listModels.get(i - 1);
+                        getLocalRecipeDetailTask.execute(localRecipeListModel.getId());
+                        Toast.makeText(getContext(), "选择程序      " + localRecipeList.get(i), Toast.LENGTH_LONG).show();
+                        // TODO: 2018/5/21  传送加数据到设备 task.execute()
+                        popDialogHelper.dismiss();
+                    }
+                });
+                break;
             case TaskIdConfig.DEVICE_CONNECT_SUCCESS_TASK:
                 isConnected = true;
                 Glide.with(getContext()).load(R.drawable.guoc).dontAnimate().into(imageView_guo);
@@ -144,6 +167,7 @@ public class ManageFragment extends BaseFragment {
                                     deviceBindTask.execute();
                                 break;
                             case 2:
+                                refreshUi(new DeviceModel(), TaskIdConfig.DEVICE_CONNECT_SUCCESS_TASK);
                                 break;
                         }
                     }
@@ -153,7 +177,8 @@ public class ManageFragment extends BaseFragment {
         textView_start.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                ManageFragment.super.uiCallBack.refreshUi("", TaskIdConfig.START_COOK);
+                long second = (int) recipeDetailModel.getTime() * 60;
+                ManageFragment.super.uiCallBack.refreshUi(second, TaskIdConfig.START_COOK);
             }
         });
         textView_choose.setOnClickListener(new View.OnClickListener() {
@@ -168,14 +193,7 @@ public class ManageFragment extends BaseFragment {
                         popDialogHelper.dismiss();
                         switch (i) {
                             case 1:
-                                popDialogHelper.buildDialogInCenter()
-                                        .setListData(Arrays.asList(file_list));
-                                popDialogHelper.setOnItemClickListener(new AdapterView.OnItemClickListener() {
-                                    @Override
-                                    public void onItemClick(AdapterView<?> adapterView, View view, int i, long l) {
-                                        Toast.makeText(getContext(), "选择程序" + i, Toast.LENGTH_SHORT).show();
-                                    }
-                                });
+                                task.execute();
                                 break;
                             case 2:
                                 Intent intent = new Intent(getActivity(), SelfDefineActivity.class);

@@ -63,7 +63,7 @@ public class MainActivity extends BaseActivity {
     private TextView stopCook, tt, time, dingshi, yali, wendu, baowen, hour, min;
     private SeekBar seekBar;
     private CountDownTimer timer;
-    private int time_count;
+    private long time_count;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -218,50 +218,13 @@ public class MainActivity extends BaseActivity {
                 } else chartView.setVisibility(View.GONE);
             }
         });
+
         stopCook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 Log.i("time", "onClick: " + time_count);
-                if (timer == null) {
-                    seekBar.setEnabled(false);
-                    stopCook.setText("停 止");
-                    hour.setEnabled(false);
-                    min.setEnabled(false);
-                    dingshi.setEnabled(false);
-                    timer = new CountDownTimer(time_count * 1000, 1000) {
-                        @Override
-                        public void onTick(long millisUntilFinished) {
-                            int a = (int) ((millisUntilFinished / 1000) / 3600);
-                            int b = (int) ((millisUntilFinished / 1000) % 3600) / 60;
-                            int c = (int) ((millisUntilFinished / 1000) % 3600) % 60;
-                            if (c < 10 && b > 9) {
-                                time.setText(a + ":" + b + ":" + "0" + c);
-                            } else if (c > 9 && b < 10) {
-                                time.setText(a + ":" + "0" + b + ":" + c);
-
-                            } else if (c < 10 && b < 10) {
-                                time.setText(a + ":" + "0" + b + ":" + "0" + c);
-
-                            } else time.setText(a + ":" + b + ":" + c);
-                        }
-
-                        @Override
-                        public void onFinish() {
-                            time.setText("完 成");
-                        }
-                    }.start();
-                } else {
-                    imageView.clearAnimation();
-                    seekBar.setEnabled(true);
-                    time.setText("00:00");
-                    stopCook.setText("开 始");
-                    dingshi.setEnabled(true);
-                    timer.cancel();
-                    timer = null;
-                }
-
-
-//                imageView.clearAnimation();
+              //  start(time_count);
+                refreshUi(time_count,TaskIdConfig.START_COOK);
             }
         });
         //初始化中间按钮
@@ -418,7 +381,49 @@ public class MainActivity extends BaseActivity {
                 break;
             case TaskIdConfig.START_COOK:
                 imageView.startAnimation(circle_anim);
+                start((Long) result);
                 break;
+        }
+    }
+
+    private void start(long a) {
+        time_count = a;
+        if (timer == null) {
+            seekBar.setEnabled(false);
+            stopCook.setText("停 止");
+            hour.setEnabled(false);
+            min.setEnabled(false);
+            dingshi.setEnabled(false);
+            timer = new CountDownTimer(time_count * 1000, 1000) {
+                @Override
+                public void onTick(long millisUntilFinished) {
+                    int a = (int) ((millisUntilFinished / 1000) / 3600);
+                    int b = (int) ((millisUntilFinished / 1000) % 3600) / 60;
+                    int c = (int) ((millisUntilFinished / 1000) % 3600) % 60;
+                    if (c < 10 && b > 9) {
+                        time.setText(a + ":" + b + ":" + "0" + c);
+                    } else if (c > 9 && b < 10) {
+                        time.setText(a + ":" + "0" + b + ":" + c);
+
+                    } else if (c < 10 && b < 10) {
+                        time.setText(a + ":" + "0" + b + ":" + "0" + c);
+
+                    } else time.setText(a + ":" + b + ":" + c);
+                }
+
+                @Override
+                public void onFinish() {
+                    time.setText("完 成");
+                }
+            }.start();
+        } else {
+            imageView.clearAnimation();
+            seekBar.setEnabled(true);
+            time.setText("00:00");
+            stopCook.setText("开 始");
+            dingshi.setEnabled(true);
+            timer.cancel();
+            timer = null;
         }
     }
 

@@ -4,27 +4,19 @@ import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.v7.widget.LinearLayoutManager;
-import android.support.v7.widget.RecyclerView;
 import android.view.LayoutInflater;
 import android.view.View;
 import android.view.ViewGroup;
-import android.widget.Toast;
 
 import com.aspsine.irecyclerview.IRecyclerView;
 import com.aspsine.irecyclerview.OnRefreshListener;
 import com.example.frame_lib.frame.config.TaskIdConfig;
 import com.example.frame_lib.frame.frags.BaseFragment;
-import com.example.sidetablayout_lib.OnChangeListener;
-import com.example.sidetablayout_lib.SideTabLayout;
 import com.example.smartcooker.R;
 import com.example.smartcooker.app.bll.adapter.CloudRecipeListAdapter;
-import com.example.smartcooker.app.bll.adapter.LocalRecipeListAdapter;
 import com.example.smartcooker.app.bll.adapter.OnItemClickListener;
 import com.example.smartcooker.app.bll.recipe.GetCloudRecipeListTask;
-import com.example.smartcooker.app.bll.recipe.GetLocalRecipeListTask;
-import com.example.smartcooker.app.bll.recipe.GetLocalRecipeTask;
 import com.example.smartcooker.app.dal.model.CloudRecipeListModel;
-import com.example.smartcooker.app.dal.model.LocalRecipeListModel;
 import com.example.smartcooker.app.ui.actys.CloudRecipeDetailActivity;
 
 import java.util.List;

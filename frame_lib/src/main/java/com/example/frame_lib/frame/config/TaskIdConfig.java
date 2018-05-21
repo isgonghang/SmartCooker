@@ -21,7 +21,10 @@ public interface TaskIdConfig {
     int START_COOK = 12;
     int ON_GET_CLOUD_RECIPE_LIST_SUCCESS = 13;
     int ON_GET_LOCAL_RECIPE_LIST_SUCCESS = 14;
+
     int REFRESH_HOUR = 15;
-    int REFRESH_MIN= 16;
-    int REFRESH_TEMP= 17;
+    int REFRESH_MIN = 16;
+    int REFRESH_TEMP = 17;
+    int REFRESH_START_AMINATION = 18;
+    int ON_GET_LOCAL_RECIPE_DELATIL_SUCCESS = 19;
 }
