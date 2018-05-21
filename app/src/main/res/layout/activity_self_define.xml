@@ -1,143 +1,280 @@
 <?xml version="1.0" encoding="utf-8"?>
 <RelativeLayout xmlns:android="http://schemas.android.com/apk/res/android"
     android:layout_width="match_parent"
-    android:layout_height="match_parent">
+    android:layout_height="match_parent"
+    android:background="#f4f4f4">
 
-    <com.example.stretchscrollview.StretchContainer xmlns:android="http://schemas.android.com/apk/res/android"
+
+    <!--<com.example.stretchscrollview.StretchContainer xmlns:android="http://schemas.android.com/apk/res/android"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent"-->
+    <!--android:background="#f4f4f4">-->
+
+    <!--<com.example.stretchscrollview.StretchScrollView-->
+    <!--android:id="@+id/stretchView"-->
+    <!--android:layout_width="match_parent"-->
+    <!--android:layout_height="match_parent">-->
+
+    <RelativeLayout
         android:layout_width="match_parent"
-        android:layout_height="match_parent"
-        android:background="#f4f4f4">
+        android:layout_height="match_parent">
 
-        <com.example.stretchscrollview.StretchScrollView
+        <TextView
+            android:id="@+id/edit_detail"
             android:layout_width="match_parent"
-            android:layout_height="match_parent">
+            android:layout_height="48dp"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="编辑食谱详情"
+            android:textColor="#000000"
+            android:textSize="16sp" />
 
-            <RelativeLayout
+        <RelativeLayout
+            android:id="@+id/root_a"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/edit_detail"
+            android:visibility="gone">
+
+            <EditText
+                android:id="@+id/text_type_name"
                 android:layout_width="match_parent"
-                android:layout_height="match_parent">
+                android:layout_height="48dp"
+                android:layout_marginTop="15dp"
+                android:background="#fff"
+                android:gravity="center_vertical"
+                android:hint="编辑作品名称"
+                android:paddingLeft="15dp"
+                android:textColor="#000"
+                android:textColorHint="#353535"
+                android:textSize="16sp" />
 
+            <TextView
+                android:id="@+id/add_pic"
+                android:layout_width="match_parent"
+                android:layout_height="48dp"
+                android:layout_below="@+id/text_type_name"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff"
+                android:gravity="center_vertical"
+                android:paddingLeft="15dp"
+                android:text="添加封面图片"
+                android:textColor="#000000"
+                android:textSize="16sp" />
 
-                <EditText
-                    android:id="@+id/text_type_name"
+            <ImageView
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@+id/add_pic"
+                android:layout_marginRight="20dp"
+                android:padding="8dp"
+                android:src="@drawable/icon_add_selected" />
+
+            <ImageView
+                android:id="@+id/image_pic"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_below="@id/add_pic"
+                android:layout_centerHorizontal="true"
+                android:background="#ffffff"
+                android:paddingLeft="15dp"
+                android:paddingRight="15dp"
+                android:visibility="gone" />
+
+            <EditText
+                android:id="@+id/edit_recipe"
+                android:layout_width="match_parent"
+                android:layout_height="150dp"
+                android:layout_below="@id/image_pic"
+                android:layout_marginTop="10dp"
+                android:background="#ffffff"
+                android:hint="编辑食材与步骤"
+                android:paddingLeft="15dp"
+                android:textColor="#000000"
+                android:textColorHint="#353535"
+                android:textSize="16sp" />
+        </RelativeLayout>
+
+        <TextView
+            android:id="@+id/add_time"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/root_a"
+            android:layout_marginTop="10dp"
+            android:background="#ffffff"
+            android:gravity="center_vertical"
+            android:paddingLeft="15dp"
+            android:text="编辑加热曲线"
+            android:textColor="#000000"
+            android:textSize="16sp" />
+
+        <RelativeLayout
+            android:id="@+id/picker_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_time"
+            android:background="@drawable/text_background_selector"
+            android:paddingBottom="15dp"
+            android:visibility="gone">
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentStart="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginLeft="60dp"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:text="时  间/min"
+                android:textColor="#a0ff6600" />
+
+            <TextView
+                android:id="@+id/text_wheel_temp"
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentTop="true"
+                android:layout_centerHorizontal="true"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:text="温  度/℃"
+                android:textColor="#a0ff6600" />
+
+            <TextView
+                android:layout_width="wrap_content"
+                android:layout_height="wrap_content"
+                android:layout_alignParentEnd="true"
+                android:layout_alignParentTop="true"
+                android:layout_marginRight="60dp"
+                android:layout_marginTop="10dp"
+                android:padding="8dp"
+                android:text="压  力/kPa"
+                android:textColor="#a0ff6600" />
+
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_wheel_temp"
+                android:layout_marginTop="10dp"
+                android:layout_toRightOf="@id/ll_center"
+                android:orientation="horizontal">
+
+                <com.example.smartcooker.app.ui.views.WheelView
+                    android:id="@+id/wheel_right"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_marginTop="15dp"
-                    android:background="#fff"
-                    android:gravity="center_vertical"
-                    android:hint="编辑作品名称"
-                    android:paddingLeft="15dp"
-                    android:textColor="#000"
-                    android:textColorHint="#353535"
-                    android:textSize="16sp" />
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true" />
+            </LinearLayout>
 
-                <TextView
-                    android:id="@+id/add_pic"
+            <LinearLayout
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_wheel_temp"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@id/ll_center"
+                android:orientation="horizontal">
+
+                <com.example.smartcooker.app.ui.views.WheelView
+                    android:id="@+id/wheel_left"
                     android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_below="@+id/text_type_name"
-                    android:layout_marginTop="10dp"
-                    android:background="#ffffff"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="15dp"
-                    android:text="添加封面图片"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true" />
+            </LinearLayout>
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignTop="@+id/add_pic"
-                    android:layout_marginRight="20dp"
-                    android:padding="8dp"
-                    android:src="@drawable/icon_add_selected" />
+            <LinearLayout
+                android:id="@+id/ll_center"
+                android:layout_width="120dp"
+                android:layout_height="wrap_content"
+                android:layout_below="@id/text_wheel_temp"
+                android:layout_centerInParent="true"
+                android:layout_marginTop="10dp"
+                android:orientation="horizontal">
 
-                <ImageView
-                    android:id="@+id/image_pic"
+                <com.example.smartcooker.app.ui.views.WheelView
+                    android:id="@+id/main_wv"
                     android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_below="@id/add_pic"
-                    android:layout_centerHorizontal="true"
-                    android:background="#ffffff"
-                    android:paddingLeft="15dp"
-                    android:paddingRight="15dp"
-                    android:visibility="gone" />
+                    android:layout_height="match_parent"
+                    android:layout_centerInParent="true" />
+            </LinearLayout>
 
-                <EditText
-                    android:id="@+id/edit_recipe"
-                    android:layout_width="match_parent"
-                    android:layout_height="150dp"
-                    android:layout_below="@id/image_pic"
-                    android:layout_marginTop="10dp"
-                    android:background="#ffffff"
-                    android:hint="编辑食材与步骤"
-                    android:paddingLeft="15dp"
-                    android:textColor="#000000"
-                    android:textColorHint="#353535"
-                    android:textSize="16sp" />
+            <ImageView
+                android:padding="3dp"
+                android:id="@+id/add_to_chart"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_below="@id/ll_center"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp"
+                android:layout_toLeftOf="@id/delete_line"
+                android:src="@drawable/icon_add_selected" />
 
-                <TextView
-                    android:id="@+id/add_time"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_below="@id/edit_recipe"
-                    android:layout_marginTop="10dp"
-                    android:background="#ffffff"
-                    android:gravity="center_vertical"
-                    android:paddingLeft="15dp"
-                    android:text="添加加热时间段"
-                    android:textColor="#000000"
-                    android:textSize="16sp" />
+            <ImageView
+                android:id="@+id/delete_line"
+                android:layout_width="48dp"
+                android:layout_height="48dp"
+                android:layout_alignParentEnd="true"
+                android:layout_alignTop="@id/add_to_chart"
+          android:layout_marginRight="30dp"
+                android:src="@drawable/close_icon" />
 
-                <LinearLayout
+            <lecho.lib.hellocharts.view.LineChartView
+                android:id="@+id/edit_chart"
+                android:layout_width="match_parent"
+                android:layout_height="250dp"
+                android:layout_below="@id/add_to_chart"
+                android:layout_marginLeft="10dp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="10dp" />
+        </RelativeLayout>
 
-                    android:id="@+id/time_root"
-                    android:layout_width="match_parent"
-                    android:layout_height="wrap_content"
-                    android:layout_below="@id/add_time"
-                    android:orientation="vertical">
+        <LinearLayout
+            android:id="@+id/time_root"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_below="@id/add_time"
+            android:orientation="vertical"></LinearLayout>
 
-                </LinearLayout>
-
-                <lecho.lib.hellocharts.view.LineChartView
-                    android:id="@+id/mchart"
-                    android:layout_width="match_parent"
-                    android:layout_height="250dp"
-                    android:layout_below="@id/time_root"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="10dp"
-                    android:visibility="gone" />
+        <lecho.lib.hellocharts.view.LineChartView
+            android:id="@+id/mchart"
+            android:layout_width="match_parent"
+            android:layout_height="250dp"
+            android:layout_below="@id/time_root"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="10dp"
+            android:visibility="gone" />
 
 
-                <ImageView
-                    android:layout_width="48dp"
-                    android:layout_height="48dp"
-                    android:layout_alignParentEnd="true"
-                    android:layout_alignTop="@+id/add_time"
-                    android:layout_marginRight="20dp"
-                    android:padding="8dp"
-                    android:src="@drawable/icon_add_selected" />
+        <ImageView
+            android:layout_width="48dp"
+            android:layout_height="48dp"
+            android:layout_alignParentEnd="true"
+            android:layout_alignTop="@+id/add_time"
+            android:layout_marginRight="20dp"
+            android:padding="8dp"
+            android:src="@drawable/icon_add_selected" />
 
-                <TextView
-                    android:id="@+id/go"
-                    android:layout_width="match_parent"
-                    android:layout_height="48dp"
-                    android:layout_below="@id/mchart"
-                    android:layout_marginLeft="10dp"
-                    android:layout_marginRight="10dp"
-                    android:layout_marginTop="20dp"
-                    android:background="@drawable/title_drable"
-                    android:gravity="center"
-                    android:text="生 成 加 热 曲 线"
-                    android:textSize="16sp" />
+        <TextView
+            android:id="@+id/go"
+            android:layout_width="match_parent"
+            android:layout_height="48dp"
+            android:layout_below="@id/picker_root"
+            android:layout_marginLeft="10dp"
+            android:layout_marginRight="10dp"
+            android:layout_marginTop="20dp"
+            android:background="@drawable/title_drable"
+            android:gravity="center"
+            android:text="生 成 加 热 曲 线"
+            android:textSize="16sp" />
 
-                <View
-                    android:layout_width="match_parent"
-                    android:layout_height="120dp"
-                    android:layout_below="@id/go" />
+        <View
+            android:layout_width="match_parent"
+            android:layout_height="120dp"
+            android:layout_below="@id/go" />
 
-            </RelativeLayout>
-        </com.example.stretchscrollview.StretchScrollView>
-    </com.example.stretchscrollview.StretchContainer>
+    </RelativeLayout>
+    <!--</com.example.stretchscrollview.StretchScrollView>-->
+    <!--</com.example.stretchscrollview.StretchContainer>-->
 </RelativeLayout>

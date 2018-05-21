@@ -60,10 +60,11 @@ public class MainActivity extends BaseActivity {
     private LineChartView chartView;
     private ChartHelper chartHelp;
     private TreeMap<Integer, Float> map;
-    private TextView stopCook, tt, time, dingshi, yali, wendu, baowen, hour, min;
+    private TextView stopCook, tt, time, dingshi, yali, wendu, baowen, hour, min,nowyali,nowwendu;
     private SeekBar seekBar;
     private CountDownTimer timer;
     private long time_count;
+    private int init_temp ;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -86,6 +87,8 @@ public class MainActivity extends BaseActivity {
     public void initView() {
         tt = findViewById(R.id.tt);
         hour = findViewById(R.id.hour);
+        nowwendu=findViewById(R.id.nowtemp);
+        nowyali=findViewById(R.id.now_yali);
         min = findViewById(R.id.min);
         stopCook = findViewById(R.id.start_textView);
         seekBar = findViewById(R.id.seek_bar);
@@ -111,19 +114,24 @@ public class MainActivity extends BaseActivity {
         Typeface face = Typeface.createFromAsset(getAssets(),
                 "fonts/digifaw.ttf");
         time.setTypeface(face);
+        nowyali.setTypeface(face);
+        nowwendu.setTypeface(face);
         yali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+                seekBar.setMax(110);
+                seekBar.setProgress(0);
+                hour.setEnabled(false);
+                min.setEnabled(false);
             }
         });
         wendu.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
                 seekBar.setMax(78);
-                seekBar.setProgress(0);
+               seekBar.setProgress(0);
                 hour.setEnabled(false);
                 min.setEnabled(false);
-                time.setText("22 ℃");
             }
         });
         dingshi.setOnClickListener(new View.OnClickListener() {
@@ -187,7 +195,10 @@ public class MainActivity extends BaseActivity {
                         refreshUi(s, TaskIdConfig.REFRESH_MIN);
                     } else refreshUi(i, TaskIdConfig.REFRESH_MIN);
                 } else if (seekBar.getMax() == 78) {
-                    refreshUi((i + 22) + "℃", TaskIdConfig.REFRESH_TEMP);
+                    refreshUi((i + 22) + "°C", TaskIdConfig.REFRESH_TEMP);
+                }
+                else if (seekBar.getMax()==110){
+                    refreshUi((i + 50) + "KPA", TaskIdConfig.REFRESH_TEMP);
                 }
             }
 
@@ -223,8 +234,8 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 Log.i("time", "onClick: " + time_count);
-              //  start(time_count);
-                refreshUi(time_count,TaskIdConfig.START_COOK);
+                //  start(time_count);
+                refreshUi(time_count, TaskIdConfig.START_COOK);
             }
         });
         //初始化中间按钮
@@ -355,6 +366,11 @@ public class MainActivity extends BaseActivity {
         switch (taskId) {
             case TaskIdConfig.REFRESH_TEMP:
                 time.setText((String) result);
+                nowwendu.setText((String) result);
+                break;
+            case  TaskIdConfig.REFRESH_YALI:
+                time.setText((String) result);
+                nowyali.setText((String) result);
                 break;
             case TaskIdConfig.REFRESH_HOUR:
                 String s = time.getText().toString();
@@ -393,6 +409,8 @@ public class MainActivity extends BaseActivity {
             stopCook.setText("停 止");
             hour.setEnabled(false);
             min.setEnabled(false);
+            wendu.setEnabled(false);
+            yali.setEnabled(false);
             dingshi.setEnabled(false);
             timer = new CountDownTimer(time_count * 1000, 1000) {
                 @Override
@@ -422,6 +440,8 @@ public class MainActivity extends BaseActivity {
             time.setText("00:00");
             stopCook.setText("开 始");
             dingshi.setEnabled(true);
+            wendu.setEnabled(true);
+            yali.setEnabled(true);
             timer.cancel();
             timer = null;
         }

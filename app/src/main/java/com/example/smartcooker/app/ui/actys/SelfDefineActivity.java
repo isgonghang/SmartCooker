@@ -16,12 +16,15 @@ import android.support.annotation.Nullable;
 import android.support.v4.app.ActivityCompat;
 import android.support.v4.content.ContextCompat;
 import android.support.v4.content.FileProvider;
+import android.util.Log;
+import android.view.MotionEvent;
 import android.view.View;
 import android.view.ViewGroup;
 import android.view.WindowManager;
 import android.widget.AdapterView;
 import android.widget.ImageView;
 import android.widget.LinearLayout;
+import android.widget.RelativeLayout;
 import android.widget.TextView;
 import android.widget.Toast;
 
@@ -34,6 +37,8 @@ import com.example.smartcooker.app.dal.model.ChartArgsModel;
 import com.example.smartcooker.app.dal.model.Image;
 import com.example.smartcooker.app.ui.views.ChartHelper;
 import com.example.smartcooker.app.ui.views.DefineTime;
+import com.example.smartcooker.app.ui.views.WheelView;
+import com.example.stretchscrollview.StretchScrollView;
 
 import java.io.ByteArrayOutputStream;
 import java.io.File;
@@ -56,7 +61,7 @@ public class SelfDefineActivity extends BaseActivity {
     private ImageView imageView_pic;
     private String fileName;//图片名称
     private Uri uri;//图片路径
-    private TextView textView_add_pic, add_time, go;
+    private TextView textView_add_pic, add_time, go, edit_detail;
     private PopDialogHelper popDialogHelper;
     String[] choose_way_list = {"图片来源", "拍照", "本地图库"};
     String[] save_way_list = {"请选择", "仅保存", "保存并分享", "放弃并退出"};
@@ -65,6 +70,11 @@ public class SelfDefineActivity extends BaseActivity {
     private ChartHelper chartHelper;
     private List<ChartArgsModel> argsModelList;
     private LineChartView chartView;
+    private List<String> timeList, temp_list, yali_list;
+    private WheelView wheelView_left, wheelView_center, wheelView_right;
+    private RelativeLayout root_a, root_picker;
+    private TreeMap<Integer, Float> pointMap;
+    private ImageView add_to_chart, delete_line;
 
     @Override
     public void refreshUi(Object result, int taskId) {
@@ -78,8 +88,37 @@ public class SelfDefineActivity extends BaseActivity {
 
     @Override
     protected void initView() {
+        add_to_chart = findViewById(R.id.add_to_chart);
+        delete_line = findViewById(R.id.delete_line);
+        pointMap = new TreeMap<>();
+        pointMap.put(0, (float) 22);
+        root_a = findViewById(R.id.root_a);
+        root_picker = findViewById(R.id.picker_root);
+        edit_detail = findViewById(R.id.edit_detail);
+        //初始化wheelview
+        timeList = new ArrayList<>();
+        yali_list = new ArrayList<>();
+        temp_list = new ArrayList<>();
+        for (int i = 0; i < 79; i++) {
+            temp_list.add(String.valueOf(i + 22));
+        }
+        for (int i = 0; i < 91; i++) {
+            timeList.add(String.valueOf(i));
+        }
+        for (int i = 0; i < 8; i++) {
+            yali_list.add(String.valueOf((i + 7) / 10));
+        }
+        wheelView_center = (WheelView) findViewById(R.id.main_wv);
+        wheelView_left = (WheelView) findViewById(R.id.wheel_left);
+        wheelView_right = (WheelView) findViewById(R.id.wheel_right);
+        wheelView_center.setOffset(1);
+        wheelView_left.setOffset(1);
+        wheelView_right.setOffset(1);
+        wheelView_center.setItems(temp_list);
+        wheelView_right.setItems(yali_list);
+        wheelView_left.setItems(timeList);
         //初始化图表
-        chartView = findViewById(R.id.mchart);
+        chartView = findViewById(R.id.edit_chart);
         chartHelper = new ChartHelper(chartView);
         argsModelList = new ArrayList<>();
         //初始化弹出框
@@ -124,12 +163,21 @@ public class SelfDefineActivity extends BaseActivity {
         add_time.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                View v = new DefineTime(getApplicationContext(), time_root);
-                time_root.addView(v);
-                ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
-                p.topMargin = 10;
-                v.setLayoutParams(p);
-                go.bringToFront();
+                if (root_picker.getVisibility() == View.GONE) {
+                    root_a.setVisibility(View.GONE);
+                    root_picker.setVisibility(View.VISIBLE);
+                    chartHelper = null;
+                    chartHelper = new ChartHelper(chartView);
+                    chartHelper.setMap(pointMap);
+                } else {
+                    root_picker.setVisibility(View.GONE);
+                }
+//                View v = new DefineTime(getApplicationContext(), time_root);
+//                time_root.addView(v);
+//                ViewGroup.MarginLayoutParams p = (ViewGroup.MarginLayoutParams) v.getLayoutParams();
+//                p.topMargin = 10;
+//                v.setLayoutParams(p);
+//                go.bringToFront();
             }
         });
         textView_add_pic.setOnClickListener(new View.OnClickListener() {
@@ -186,6 +234,39 @@ public class SelfDefineActivity extends BaseActivity {
                     time_root.setVisibility(View.VISIBLE);
                     chartView.setVisibility(View.GONE);
                 }
+            }
+        });
+        delete_line.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                    int t =pointMap.lastKey();
+                    if (t!=0){
+                        pointMap.remove(t);
+                        chartHelper = null;
+                        chartHelper = new ChartHelper(chartView);
+                        chartHelper.setMap(pointMap);
+                    }
+            }
+        });
+        edit_detail.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                if (root_a.getVisibility() == View.GONE) {
+                    root_a.setVisibility(View.VISIBLE);
+                    root_picker.setVisibility(View.GONE);
+
+                } else {
+                    root_a.setVisibility(View.GONE);
+                }
+            }
+        });
+        add_to_chart.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                pointMap.put(Integer.parseInt(timeList.get(wheelView_left.getSeletedIndex())), Float.parseFloat(temp_list.get(wheelView_center.getSeletedIndex())));
+                chartHelper = null;
+                chartHelper = new ChartHelper(chartView);
+                chartHelper.setMap(pointMap);
             }
         });
     }

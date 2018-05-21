@@ -24,7 +24,27 @@
             android:layout_marginLeft="60dp" />
 
         <TextView
-            android:singleLine="true"
+            android:id="@+id/nowtemp"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignLeft="@id/shumaguan"
+            android:layout_alignTop="@id/tiaojieyali"
+            android:layout_marginBottom="15dp"
+            android:text="65°C"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <TextView
+            android:id="@+id/now_yali"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_alignRight="@id/shumaguan"
+            android:layout_alignTop="@id/nowtemp"
+            android:text="100kpa"
+            android:textColor="#000000"
+            android:textSize="18sp" />
+
+        <TextView
             android:id="@+id/shumaguan"
             android:layout_width="160dp"
             android:layout_height="70dp"
@@ -33,8 +53,9 @@
             android:background="@drawable/shape_text"
             android:gravity="center"
             android:padding="5dp"
+            android:singleLine="true"
             android:text="00:00"
-            android:textColor="#ffffff"
+            android:textColor="#000000"
             android:textSize="40sp" />
 
         <TextView
@@ -108,8 +129,8 @@
             android:id="@+id/min"
             android:layout_width="wrap_content"
             android:layout_height="wrap_content"
-            android:layout_toRightOf="@id/hour"
             android:layout_alignTop="@id/hour"
+            android:layout_toRightOf="@id/hour"
 
             android:background="@drawable/selector_control_text"
             android:clickable="true"
