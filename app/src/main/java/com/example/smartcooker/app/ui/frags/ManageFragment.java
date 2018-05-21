@@ -1,5 +1,6 @@
 package com.example.smartcooker.app.ui.frags;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.annotation.Nullable;
 import android.support.annotation.PluralsRes;
@@ -32,6 +33,7 @@ import com.example.smartcooker.R;
 import com.example.smartcooker.app.bll.device.DeviceBindTask;
 import com.example.smartcooker.app.dal.model.DeviceModel;
 import com.example.smartcooker.app.dal.model.Image;
+import com.example.smartcooker.app.ui.actys.SelfDefineActivity;
 import com.skyfishjy.library.RippleBackground;
 
 import java.util.ArrayList;
@@ -71,7 +73,7 @@ public class ManageFragment extends BaseFragment {
         switch (taskId) {
             case TaskIdConfig.DEVICE_CONNECT_SUCCESS_TASK:
                 isConnected = true;
-              Glide.with(getContext()).load(R.drawable.guoc).dontAnimate().into(imageView_guo);
+                Glide.with(getContext()).load(R.drawable.guoc).dontAnimate().into(imageView_guo);
                 info_root.setVisibility(View.VISIBLE);
                 DeviceModel deviceModel = (DeviceModel) result;
                 rippleBackground.stopRippleAnimation();
@@ -176,7 +178,8 @@ public class ManageFragment extends BaseFragment {
                                 });
                                 break;
                             case 2:
-
+                                Intent intent = new Intent(getActivity(), SelfDefineActivity.class);
+                                startActivity(intent);
                                 break;
                         }
                     }

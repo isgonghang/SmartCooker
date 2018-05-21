@@ -164,12 +164,12 @@ public class MainActivity extends BaseActivity {
             @Override
             public void afterTextChanged(Editable editable) {
                 String s = time.getText().toString();
-                if (s.contains(":")&&s.length()<6) {
+                if (s.contains(":") && s.length() < 6) {
                     //将时间转化为秒
-                    int h=Integer.parseInt(s.substring(1,2));
-                    int m=Integer.parseInt(s.substring(3,4));
-                    int mm=Integer.parseInt(s.substring(4,5));
-                    time_count=h*3600+m*10*60+mm*60;
+                    int h = Integer.parseInt(s.substring(1, 2));
+                    int m = Integer.parseInt(s.substring(3, 4));
+                    int mm = Integer.parseInt(s.substring(4, 5));
+                    time_count = h * 3600 + m * 10 * 60 + mm * 60;
                 }
             }
         });
@@ -221,28 +221,28 @@ public class MainActivity extends BaseActivity {
         stopCook.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                Log.i("time", "onClick: "+time_count);
+                Log.i("time", "onClick: " + time_count);
                 if (timer == null) {
                     seekBar.setEnabled(false);
                     stopCook.setText("停 止");
                     hour.setEnabled(false);
                     min.setEnabled(false);
                     dingshi.setEnabled(false);
-                    timer = new CountDownTimer(time_count*1000, 1000) {
+                    timer = new CountDownTimer(time_count * 1000, 1000) {
                         @Override
                         public void onTick(long millisUntilFinished) {
                             int a = (int) ((millisUntilFinished / 1000) / 3600);
                             int b = (int) ((millisUntilFinished / 1000) % 3600) / 60;
                             int c = (int) ((millisUntilFinished / 1000) % 3600) % 60;
-                            if (c < 10&&b>9) {
+                            if (c < 10 && b > 9) {
                                 time.setText(a + ":" + b + ":" + "0" + c);
-                            } else if (c>9&&b<10){
-                                time.setText(a + ":" + "0"+ b + ":"  + c);
+                            } else if (c > 9 && b < 10) {
+                                time.setText(a + ":" + "0" + b + ":" + c);
 
-                            }else if (c<10&&b<10){
-                                time.setText(a + ":" +"0" + b + ":" + "0" + c);
+                            } else if (c < 10 && b < 10) {
+                                time.setText(a + ":" + "0" + b + ":" + "0" + c);
 
-                            }else time.setText(a + ":" + b + ":" + c);
+                            } else time.setText(a + ":" + b + ":" + c);
                         }
 
                         @Override
@@ -251,6 +251,7 @@ public class MainActivity extends BaseActivity {
                         }
                     }.start();
                 } else {
+                    imageView.clearAnimation();
                     seekBar.setEnabled(true);
                     time.setText("00:00");
                     stopCook.setText("开 始");
