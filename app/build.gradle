@@ -51,4 +51,5 @@ dependencies {
     compile 'org.greenrobot:greendao:3.2.2'
     // add library
     compile 'org.greenrobot:greendao-generator:3.2.2'
+    implementation project(':voice_lib')
 }

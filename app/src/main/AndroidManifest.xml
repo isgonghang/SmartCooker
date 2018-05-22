@@ -14,6 +14,12 @@
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_COARSE_LOCATION" />
     <uses-permission-sdk-23 android:name="android.permission.ACCESS_FINE_LOCATION" />
 
+    <!--语音权限-->
+    <uses-permission android:name="android.permission.RECORD_AUDIO" />
+    <uses-permission android:name="android.permission.ACCESS_NETWORK_STATE" />
+    <uses-permission android:name="android.permission.READ_PHONE_STATE" />
+
+
     <application
         android:name="com.example.frame_lib.frame.application.BaseApplication"
         android:allowBackup="true"
@@ -22,6 +28,16 @@
         android:roundIcon="@mipmap/ic_launcher_round"
         android:supportsRtl="true"
         android:theme="@style/AppTheme">
+        <meta-data
+            android:name="com.baidu.speech.APP_ID"
+            android:value="11250483" />
+        <meta-data
+            android:name="com.baidu.speech.API_KEY"
+            android:value="VcQTE1f5G3fHMK7RgW2ITiur" />
+        <meta-data
+            android:name="com.baidu.speech.SECRET_KEY"
+            android:value="e2e6224f8361d3586142c8c41bbe3e47" />
+
         <activity android:name=".app.ui.actys.MainActivity">
             <intent-filter>
                 <action android:name="android.intent.action.MAIN" />
@@ -31,7 +47,7 @@
         </activity>
         <activity android:name=".app.ui.actys.CloudRecipeDetailActivity" />
         <activity android:name=".app.ui.actys.SearchActivity" />
-        <activity android:name=".app.ui.actys.LoginActivity"/>
+        <activity android:name=".app.ui.actys.LoginActivity" />
         <activity android:name=".app.ui.actys.SelfDefineActivity" />
 
         <provider

@@ -1,11 +1,15 @@
 package com.example.smartcooker.app.ui.actys;
 
+import android.Manifest;
 import android.content.Intent;
+import android.content.pm.PackageManager;
 import android.graphics.Typeface;
 import android.os.Bundle;
 import android.os.CountDownTimer;
 import android.support.annotation.Nullable;
+import android.support.v4.app.ActivityCompat;
 import android.support.v4.app.Fragment;
+import android.support.v4.content.ContextCompat;
 import android.support.v4.view.ViewPager;
 
 import android.text.Editable;
@@ -16,6 +20,7 @@ import android.view.animation.Animation;
 import android.view.animation.AnimationUtils;
 import android.view.animation.LinearInterpolator;
 import android.widget.ImageView;
+import android.widget.RelativeLayout;
 import android.widget.SeekBar;
 import android.widget.TextView;
 import android.widget.Toast;
@@ -36,6 +41,10 @@ import com.example.smartcooker.app.ui.frags.ManageFragment;
 import com.example.smartcooker.app.ui.frags.MeFragment;
 import com.example.smartcooker.app.ui.frags.RecipeFragment;
 import com.example.smartcooker.app.ui.views.ChartHelper;
+import com.example.voice_lib.MyVoiceHelper;
+import com.example.voice_lib.recognization.IRecogListener;
+import com.example.voice_lib.recognization.RecogResult;
+import com.skyfishjy.library.RippleBackground;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -65,6 +74,10 @@ public class MainActivity extends BaseActivity {
     private CountDownTimer timer;
     private long time_count;
     private int init_temp;
+    private RelativeLayout voice_root;
+    private MyVoiceHelper voiceHelper;
+    private RippleBackground voice_rp;
+
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -74,6 +87,8 @@ public class MainActivity extends BaseActivity {
         viewPager = findViewById(R.id.viewPager);
         navigationBar = findViewById(R.id.navigationBar);
         initView();
+        initPermission();
+
         //  initData();
     }
 
@@ -85,7 +100,10 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
+
         tt = findViewById(R.id.tt);
+        voice_rp = findViewById(R.id.voice_rp);
+        voice_root = findViewById(R.id.voice_root);
         hour = findViewById(R.id.hour);
         nowwendu = findViewById(R.id.nowtemp);
         nowyali = findViewById(R.id.now_yali);
@@ -98,6 +116,15 @@ public class MainActivity extends BaseActivity {
         wendu = findViewById(R.id.tiaojiewendu);
         realView = findViewById(R.id.real_root);
         imageView = findViewById(R.id.start_image);
+
+        voiceHelper = new MyVoiceHelper(getApplicationContext());
+        voiceHelper.setiRecogListener(iRecogListener);
+        voice_root.setOnClickListener(new View.OnClickListener() {
+            @Override
+            public void onClick(View view) {
+                voiceHelper.start();
+            }
+        });
         time.setTextSize(30);
         //初始化控制按钮字体
         List<TextView> textViews = new ArrayList<>();
@@ -265,6 +292,7 @@ public class MainActivity extends BaseActivity {
         imageView.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
+
                 getTitle_Layout().setTitleText("加热动态")
                         .setBackDismiss(true)
                         .setRightDismiss(true);
@@ -275,6 +303,7 @@ public class MainActivity extends BaseActivity {
                     imageView.setImageResource(R.drawable.close_icon);
 
                 } else {
+
                     chartHelp = null;
                     Log.i("miao", ": " + titleState.title + titleState.left + titleState.right);
 
@@ -501,4 +530,116 @@ public class MainActivity extends BaseActivity {
             return this;
         }
     }
+
+    private IRecogListener iRecogListener = new IRecogListener() {
+        @Override
+        public void onAsrReady() {
+            voice_rp.startRippleAnimation();
+        }
+
+        @Override
+        public void onAsrBegin() {
+            Toast.makeText(MainActivity.this, "begin", Toast.LENGTH_SHORT).show();
+        }
+
+        @Override
+        public void onAsrEnd() {
+
+        }
+
+        @Override
+        public void onAsrPartialResult(String[] results, RecogResult recogResult) {
+
+        }
+
+        @Override
+        public void onAsrFinalResult(String[] results, RecogResult recogResult) {
+            voice_rp.stopRippleAnimation();
+            if (results[0].equals("开始") || results[0].equals("停止")) {
+                refreshUi(time_count, TaskIdConfig.START_COOK);
+            }
+            voiceHelper.onFinished();
+        }
+
+        @Override
+        public void onAsrFinish(RecogResult recogResult) {
+
+        }
+
+        @Override
+        public void onAsrFinishError(int errorCode, int subErrorCode, String errorMessage, String descMessage, RecogResult recogResult) {
+
+        }
+
+        @Override
+        public void onAsrLongFinish() {
+
+        }
+
+        @Override
+        public void onAsrVolume(int volumePercent, int volume) {
+
+        }
+
+        @Override
+        public void onAsrAudio(byte[] data, int offset, int length) {
+
+        }
+
+        @Override
+        public void onAsrExit() {
+
+        }
+
+        @Override
+        public void onAsrOnlineNluResult(String nluResult) {
+
+        }
+
+        @Override
+        public void onOfflineLoaded() {
+
+        }
+
+        @Override
+        public void onOfflineUnLoaded() {
+
+        }
+    };
+
+    private void initPermission() {
+        String permissions[] = {Manifest.permission.RECORD_AUDIO,
+                Manifest.permission.ACCESS_NETWORK_STATE,
+                Manifest.permission.INTERNET,
+                Manifest.permission.READ_PHONE_STATE,
+                Manifest.permission.WRITE_EXTERNAL_STORAGE
+        };
+
+        ArrayList<String> toApplyList = new ArrayList<String>();
+
+        for (String perm : permissions) {
+            if (PackageManager.PERMISSION_GRANTED != ContextCompat.checkSelfPermission(this, perm)) {
+                toApplyList.add(perm);
+                //进入到这里代表没有权限.
+
+            }
+        }
+        String tmpList[] = new String[toApplyList.size()];
+        if (!toApplyList.isEmpty()) {
+            ActivityCompat.requestPermissions(this, toApplyList.toArray(tmpList), 123);
+        }
+
+    }
+
+    @Override
+    public void onRequestPermissionsResult(int requestCode, String[] permissions, int[] grantResults) {
+        // 此处为android 6.0以上动态授权的回调，用户自行实现。
+    }
+
+    @Override
+    protected void onDestroy() {
+        super.onDestroy();
+        voiceHelper.onDestory();
+    }
 }
+

@@ -11,6 +11,7 @@
       <module fileurl="file://$PROJECT_DIR$/mytitlelayoutlib/mytitlelayoutlib.iml" filepath="$PROJECT_DIR$/mytitlelayoutlib/mytitlelayoutlib.iml" />
       <module fileurl="file://$PROJECT_DIR$/sidetablayout_lib/sidetablayout_lib.iml" filepath="$PROJECT_DIR$/sidetablayout_lib/sidetablayout_lib.iml" />
       <module fileurl="file://$PROJECT_DIR$/stretchscrollview/stretchscrollview.iml" filepath="$PROJECT_DIR$/stretchscrollview/stretchscrollview.iml" />
+      <module fileurl="file://$PROJECT_DIR$/voice_lib/voice_lib.iml" filepath="$PROJECT_DIR$/voice_lib/voice_lib.iml" />
     </modules>
   </component>
 </project>

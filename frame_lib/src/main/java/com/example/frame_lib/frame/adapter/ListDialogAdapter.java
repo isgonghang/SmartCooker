@@ -35,7 +35,6 @@ public class ListDialogAdapter extends BaseAdapter {
 
     public void setListData(List<String> mData) {
         this.mData = mData;
-
     }
 
     @Override
