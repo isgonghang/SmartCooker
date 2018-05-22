@@ -28,7 +28,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:text="编辑食谱详情"
-            android:textColor="#000000"
+            android:textColor="#a0ff6600"
             android:textSize="16sp" />
 
         <RelativeLayout
@@ -48,7 +48,7 @@
                 android:hint="编辑作品名称"
                 android:paddingLeft="15dp"
                 android:textColor="#000"
-                android:textColorHint="#353535"
+                android:textColorHint="#999999"
                 android:textSize="16sp" />
 
             <TextView
@@ -94,7 +94,7 @@
                 android:hint="编辑食材与步骤"
                 android:paddingLeft="15dp"
                 android:textColor="#000000"
-                android:textColorHint="#353535"
+                android:textColorHint="#9c9c9c"
                 android:textSize="16sp" />
         </RelativeLayout>
 
@@ -108,7 +108,7 @@
             android:gravity="center_vertical"
             android:paddingLeft="15dp"
             android:text="编辑加热曲线"
-            android:textColor="#000000"
+            android:textColor="#a0ff6600"
             android:textSize="16sp" />
 
         <RelativeLayout
@@ -116,9 +116,27 @@
             android:layout_width="match_parent"
             android:layout_height="wrap_content"
             android:layout_below="@id/add_time"
+            android:visibility="gone"
             android:background="@drawable/text_background_selector"
-            android:paddingBottom="15dp"
-            android:visibility="gone">
+           >
+
+            <View
+                android:background="#fff"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_alignTop="@id/vv"
+                android:layout_marginLeft="10dp"
+                android:layout_toRightOf="@id/text_wheel_temp" />
+
+            <View
+                android:background="#fff"
+                android:id="@+id/vv"
+                android:layout_width="1dp"
+                android:layout_height="20dp"
+                android:layout_alignTop="@id/text_wheel_temp"
+                android:layout_marginRight="10dp"
+                android:layout_marginTop="5dp"
+                android:layout_toLeftOf="@id/text_wheel_temp" />
 
             <TextView
                 android:layout_width="wrap_content"
@@ -151,9 +169,11 @@
                 android:layout_marginTop="10dp"
                 android:padding="8dp"
                 android:text="压  力/kPa"
+
                 android:textColor="#a0ff6600" />
 
             <LinearLayout
+                android:background="@drawable/wheel_back"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_wheel_temp"
@@ -168,12 +188,15 @@
                     android:layout_centerInParent="true" />
             </LinearLayout>
 
+
             <LinearLayout
+                android:id="@+id/ll_left"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
                 android:layout_below="@id/text_wheel_temp"
                 android:layout_marginTop="10dp"
                 android:layout_toLeftOf="@id/ll_center"
+                android:background="@drawable/wheel_back"
                 android:orientation="horizontal">
 
                 <com.example.smartcooker.app.ui.views.WheelView
@@ -184,6 +207,7 @@
             </LinearLayout>
 
             <LinearLayout
+                android:background="@drawable/wheel_back"
                 android:id="@+id/ll_center"
                 android:layout_width="120dp"
                 android:layout_height="wrap_content"
@@ -200,7 +224,6 @@
             </LinearLayout>
 
             <ImageView
-                android:padding="3dp"
                 android:id="@+id/add_to_chart"
                 android:layout_width="48dp"
                 android:layout_height="48dp"
@@ -208,6 +231,7 @@
                 android:layout_marginRight="10dp"
                 android:layout_marginTop="10dp"
                 android:layout_toLeftOf="@id/delete_line"
+                android:padding="3dp"
                 android:src="@drawable/icon_add_selected" />
 
             <ImageView
@@ -216,17 +240,20 @@
                 android:layout_height="48dp"
                 android:layout_alignParentEnd="true"
                 android:layout_alignTop="@id/add_to_chart"
-          android:layout_marginRight="30dp"
+                android:layout_marginRight="30dp"
                 android:src="@drawable/close_icon" />
 
             <lecho.lib.hellocharts.view.LineChartView
+                android:padding="5dp"
+                android:background="#fff"
                 android:id="@+id/edit_chart"
                 android:layout_width="match_parent"
                 android:layout_height="250dp"
                 android:layout_below="@id/add_to_chart"
-                android:layout_marginLeft="10dp"
-                android:layout_marginRight="10dp"
-                android:layout_marginTop="10dp" />
+                android:layout_marginLeft="1dp"
+                android:layout_marginRight="1dp"
+                android:layout_marginBottom="1dp"
+          />
         </RelativeLayout>
 
         <LinearLayout
@@ -254,9 +281,11 @@
             android:layout_alignTop="@+id/add_time"
             android:layout_marginRight="20dp"
             android:padding="8dp"
+            android:visibility="gone"
             android:src="@drawable/icon_add_selected" />
 
         <TextView
+            android:visibility="gone"
             android:id="@+id/go"
             android:layout_width="match_parent"
             android:layout_height="48dp"

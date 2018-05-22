@@ -77,7 +77,8 @@ public class ChartHelper {
         //坐标轴
         Axis axisX = new Axis(); //X轴
         axisX.setHasTiltedLabels(false);  //X轴下面坐标轴字体是斜的显示还是直的，true是斜的显示
-        axisX.setTextColor(Color.parseColor("#D6D6D9"));//灰色
+      //  axisX.setTextColor(Color.parseColor("#D6D6D9"));//灰色
+        axisX.setTextColor(Color.parseColor("#a0ff6600"));//灰色
 
 
 //	    axisX.setName("未来几天的天气");  //表格名称
@@ -91,6 +92,7 @@ public class ChartHelper {
         Axis axisY = new Axis();  //Y轴
         axisY.setHasLines(false);
         axisY.setTextSize(10);//设置字体大小
+        axisY.setTextColor(Color.parseColor("#a0ff6600"));
         data.setAxisYLeft(axisY);  //Y轴设置在左边
 
         lineChart.setInteractive(false);
@@ -106,7 +108,7 @@ public class ChartHelper {
         keys = map.keySet();
         Iterator<Integer> itor = keys.iterator();//获取key的Iterator便利
         while (itor.hasNext()) {//存在下一个值
-            xList.add(itor.next() + "min");//当前key值
+            xList.add(itor.next() + "m");//当前key值
         }
         getInitAxisPoints();
         getAxisXLables();//获取x轴的标注

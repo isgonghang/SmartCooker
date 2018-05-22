@@ -99,15 +99,14 @@ public class SelfDefineActivity extends BaseActivity {
         timeList = new ArrayList<>();
         yali_list = new ArrayList<>();
         temp_list = new ArrayList<>();
+        yali_list.addAll(Arrays.asList(new String[]{"30","50","80","100","120"}));
         for (int i = 0; i < 79; i++) {
             temp_list.add(String.valueOf(i + 22));
         }
         for (int i = 0; i < 91; i++) {
             timeList.add(String.valueOf(i));
         }
-        for (int i = 0; i < 8; i++) {
-            yali_list.add(String.valueOf((i + 7) / 10));
-        }
+
         wheelView_center = (WheelView) findViewById(R.id.main_wv);
         wheelView_left = (WheelView) findViewById(R.id.wheel_left);
         wheelView_right = (WheelView) findViewById(R.id.wheel_right);
@@ -117,6 +116,9 @@ public class SelfDefineActivity extends BaseActivity {
         wheelView_center.setItems(temp_list);
         wheelView_right.setItems(yali_list);
         wheelView_left.setItems(timeList);
+        wheelView_left.fling(60);
+        wheelView_center.fling(60);
+
         //初始化图表
         chartView = findViewById(R.id.edit_chart);
         chartHelper = new ChartHelper(chartView);
