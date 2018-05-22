@@ -12,7 +12,9 @@
         android:layout_width="match_parent"
         android:layout_height="320dp"
         android:layout_marginTop="15dp"
-        android:background="@drawable/control_pannel_c">
+        android:background="@drawable/title_drable"
+      >
+
 
         <SeekBar
             android:id="@+id/seek_bar"
@@ -40,7 +42,7 @@
             android:layout_height="wrap_content"
             android:layout_alignRight="@id/shumaguan"
             android:layout_alignTop="@id/nowtemp"
-            android:text="100kpa"
+            android:text="100kp"
             android:textColor="#000000"
             android:textSize="18sp" />
 
@@ -73,12 +75,12 @@
             android:paddingLeft="15dp"
             android:paddingRight="15dp"
             android:paddingTop="15dp"
-            android:shadowColor="#FF000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
+            android:shadowColor="#ff6600"
+            android:shadowDx="7"
+            android:shadowDy="7"
             android:shadowRadius="6"
             android:text="开 始"
-            android:textColor="#ff771d"
+            android:textColor="#000000"
             android:textSize="16sp" />
 
         <TextView
@@ -96,8 +98,8 @@
             android:paddingRight="15dp"
             android:paddingTop="15dp"
             android:shadowColor="#FF000000"
-            android:shadowDx="10"
-            android:shadowDy="10"
+            android:shadowDx="7"
+            android:shadowDy="7"
             android:shadowRadius="6"
             android:text="定 时"
             android:textColor="#fff"

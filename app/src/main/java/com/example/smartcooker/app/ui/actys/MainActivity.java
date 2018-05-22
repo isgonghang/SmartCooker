@@ -60,11 +60,11 @@ public class MainActivity extends BaseActivity {
     private LineChartView chartView;
     private ChartHelper chartHelp;
     private TreeMap<Integer, Float> map;
-    private TextView stopCook, tt, time, dingshi, yali, wendu, baowen, hour, min,nowyali,nowwendu;
+    private TextView stopCook, tt, time, dingshi, yali, wendu, baowen, hour, min, nowyali, nowwendu;
     private SeekBar seekBar;
     private CountDownTimer timer;
     private long time_count;
-    private int init_temp ;
+    private int init_temp;
 
     @Override
     protected void onCreate(@Nullable Bundle savedInstanceState) {
@@ -87,8 +87,8 @@ public class MainActivity extends BaseActivity {
     public void initView() {
         tt = findViewById(R.id.tt);
         hour = findViewById(R.id.hour);
-        nowwendu=findViewById(R.id.nowtemp);
-        nowyali=findViewById(R.id.now_yali);
+        nowwendu = findViewById(R.id.nowtemp);
+        nowyali = findViewById(R.id.now_yali);
         min = findViewById(R.id.min);
         stopCook = findViewById(R.id.start_textView);
         seekBar = findViewById(R.id.seek_bar);
@@ -105,6 +105,8 @@ public class MainActivity extends BaseActivity {
         textViews.add(yali);
         textViews.add(wendu);
         textViews.add(dingshi);
+        textViews.add(hour);
+        textViews.add(min);
         Typeface face2 = Typeface.createFromAsset(getAssets(),
                 "fonts/yy.TTF");
         for (TextView t : textViews
@@ -119,7 +121,7 @@ public class MainActivity extends BaseActivity {
         yali.setOnClickListener(new View.OnClickListener() {
             @Override
             public void onClick(View view) {
-                seekBar.setMax(110);
+                seekBar.setMax(4);
                 seekBar.setProgress(0);
                 hour.setEnabled(false);
                 min.setEnabled(false);
@@ -129,7 +131,7 @@ public class MainActivity extends BaseActivity {
             @Override
             public void onClick(View view) {
                 seekBar.setMax(78);
-               seekBar.setProgress(0);
+                seekBar.setProgress(0);
                 hour.setEnabled(false);
                 min.setEnabled(false);
             }
@@ -196,9 +198,25 @@ public class MainActivity extends BaseActivity {
                     } else refreshUi(i, TaskIdConfig.REFRESH_MIN);
                 } else if (seekBar.getMax() == 78) {
                     refreshUi((i + 22) + "°C", TaskIdConfig.REFRESH_TEMP);
-                }
-                else if (seekBar.getMax()==110){
-                    refreshUi((i + 50) + "KPA", TaskIdConfig.REFRESH_TEMP);
+                } else if (seekBar.getMax() == 4) {
+                    switch (i) {
+                        case 0:
+                            refreshUi("40KP", TaskIdConfig.REFRESH_YALI);
+                            break;
+                        case 1:
+                            refreshUi("60KP", TaskIdConfig.REFRESH_YALI);
+                            break;
+                        case 2:
+                            refreshUi("80KP", TaskIdConfig.REFRESH_YALI);
+                            break;
+                        case 3:
+                            refreshUi("100KP", TaskIdConfig.REFRESH_YALI);
+                            break;
+                        case 4:
+                            refreshUi("120KP", TaskIdConfig.REFRESH_YALI);
+                            break;
+                    }
+
                 }
             }
 
@@ -368,8 +386,8 @@ public class MainActivity extends BaseActivity {
                 time.setText((String) result);
                 nowwendu.setText((String) result);
                 break;
-            case  TaskIdConfig.REFRESH_YALI:
-                time.setText((String) result);
+            case TaskIdConfig.REFRESH_YALI:
+                time.setText((String) result.toString());
                 nowyali.setText((String) result);
                 break;
             case TaskIdConfig.REFRESH_HOUR:

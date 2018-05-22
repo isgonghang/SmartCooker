@@ -99,7 +99,7 @@ public class SelfDefineActivity extends BaseActivity {
         timeList = new ArrayList<>();
         yali_list = new ArrayList<>();
         temp_list = new ArrayList<>();
-        yali_list.addAll(Arrays.asList(new String[]{"30","50","80","100","120"}));
+        yali_list.addAll(Arrays.asList(new String[]{"40","60","80","100","120"}));
         for (int i = 0; i < 79; i++) {
             temp_list.add(String.valueOf(i + 22));
         }
