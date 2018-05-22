@@ -28,4 +28,5 @@ public interface TaskIdConfig {
     int REFRESH_START_AMINATION = 18;
     int ON_GET_LOCAL_RECIPE_DELATIL_SUCCESS = 19;
     int REFRESH_YALI = 20;
+    int ON_SEND_CONTROL_SUCCESS=21;
 }

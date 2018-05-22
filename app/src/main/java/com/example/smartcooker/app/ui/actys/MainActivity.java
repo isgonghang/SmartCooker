@@ -34,8 +34,10 @@ import com.example.mylibrary.NavigationBar;
 import com.example.mytitlelyoutlib.TitleLayout;
 
 import com.example.smartcooker.R;
+import com.example.smartcooker.app.bll.device.SendDataTask;
 import com.example.smartcooker.app.bll.recipe.GetCloudRecipeListTask;
 import com.example.frame_lib.frame.actys.BaseActivity;
+import com.example.smartcooker.app.dal.model.HeatingArgsModel;
 import com.example.smartcooker.app.ui.frags.LikeFragment;
 import com.example.smartcooker.app.ui.frags.ManageFragment;
 import com.example.smartcooker.app.ui.frags.MeFragment;
@@ -51,6 +53,8 @@ import java.util.List;
 import java.util.TreeMap;
 
 import lecho.lib.hellocharts.view.LineChartView;
+
+import static com.example.frame_lib.frame.config.TaskIdConfig.REFRESH_YALI;
 
 /**
  * Created by ke on 2018/4/17.
@@ -77,6 +81,7 @@ public class MainActivity extends BaseActivity {
     private RelativeLayout voice_root;
     private MyVoiceHelper voiceHelper;
     private RippleBackground voice_rp;
+    private HeatingArgsModel heatingArgsModel;
 
 
     @Override
@@ -100,7 +105,7 @@ public class MainActivity extends BaseActivity {
 
     @Override
     public void initView() {
-
+        heatingArgsModel = new HeatingArgsModel();
         tt = findViewById(R.id.tt);
         voice_rp = findViewById(R.id.voice_rp);
         voice_root = findViewById(R.id.voice_root);
@@ -207,6 +212,7 @@ public class MainActivity extends BaseActivity {
                     int m = Integer.parseInt(s.substring(3, 4));
                     int mm = Integer.parseInt(s.substring(4, 5));
                     time_count = h * 3600 + m * 10 * 60 + mm * 60;
+                    heatingArgsModel.setTime(time_count);
                 }
             }
         });
@@ -224,26 +230,11 @@ public class MainActivity extends BaseActivity {
                         refreshUi(s, TaskIdConfig.REFRESH_MIN);
                     } else refreshUi(i, TaskIdConfig.REFRESH_MIN);
                 } else if (seekBar.getMax() == 78) {
+                    heatingArgsModel.setTemp(i + 22);
                     refreshUi((i + 22) + "°C", TaskIdConfig.REFRESH_TEMP);
                 } else if (seekBar.getMax() == 4) {
-                    switch (i) {
-                        case 0:
-                            refreshUi("40KP", TaskIdConfig.REFRESH_YALI);
-                            break;
-                        case 1:
-                            refreshUi("60KP", TaskIdConfig.REFRESH_YALI);
-                            break;
-                        case 2:
-                            refreshUi("80KP", TaskIdConfig.REFRESH_YALI);
-                            break;
-                        case 3:
-                            refreshUi("100KP", TaskIdConfig.REFRESH_YALI);
-                            break;
-                        case 4:
-                            refreshUi("120KP", TaskIdConfig.REFRESH_YALI);
-                            break;
-                    }
-
+                    heatingArgsModel.setPre((40 + i * 20));
+                    refreshUi(String.valueOf((40 + i * 20) + "KP"), REFRESH_YALI);
                 }
             }
 
@@ -415,7 +406,7 @@ public class MainActivity extends BaseActivity {
                 time.setText((String) result);
                 nowwendu.setText((String) result);
                 break;
-            case TaskIdConfig.REFRESH_YALI:
+            case REFRESH_YALI:
                 time.setText((String) result.toString());
                 nowyali.setText((String) result);
                 break;
@@ -443,6 +434,12 @@ public class MainActivity extends BaseActivity {
                 getTitle_Layout().setBackOnClickListener((View.OnClickListener) result);
                 break;
             case TaskIdConfig.START_COOK:
+                SendDataTask sendDataTask = new SendDataTask(this);
+                sendDataTask.addParams(heatingArgsModel);
+                sendDataTask.execute();
+                time.setText("-LOAD-");
+                break;
+            case TaskIdConfig.ON_SEND_CONTROL_SUCCESS:
                 imageView.startAnimation(circle_anim);
                 start((Long) result);
                 break;
@@ -535,16 +532,17 @@ public class MainActivity extends BaseActivity {
         @Override
         public void onAsrReady() {
             voice_rp.startRippleAnimation();
+            voice_root.setClickable(false);
         }
 
         @Override
         public void onAsrBegin() {
+
             Toast.makeText(MainActivity.this, "begin", Toast.LENGTH_SHORT).show();
         }
 
         @Override
         public void onAsrEnd() {
-
         }
 
         @Override
@@ -559,6 +557,7 @@ public class MainActivity extends BaseActivity {
                 refreshUi(time_count, TaskIdConfig.START_COOK);
             }
             voiceHelper.onFinished();
+            voice_root.setClickable(true);
         }
 
         @Override
@@ -588,7 +587,9 @@ public class MainActivity extends BaseActivity {
 
         @Override
         public void onAsrExit() {
-
+            voice_rp.stopRippleAnimation();
+            voice_root.setClickable(true);
+            voiceHelper.onFinished();
         }
 
         @Override
